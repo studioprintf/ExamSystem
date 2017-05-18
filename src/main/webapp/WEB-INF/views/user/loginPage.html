@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+</head>
+<body>
+<form action="#" th:action="@{/user/login}" th:object="${examStudentEntity}" method="post">
+
+    <table>
+        <tr>
+            <td>
+                <label th:text="StudentID"/>
+            </td>
+            <td>
+                <input type="text" th:field="*{studentId}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label th:text="Passwd"/>
+            </td>
+            <td>
+                <input type="password" th:field="*{studentPasswd}"/>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="submit"></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>
