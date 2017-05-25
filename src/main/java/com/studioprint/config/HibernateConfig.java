@@ -3,8 +3,11 @@ package com.studioprint.config;
 import com.mchange.v2.c3p0.DriverManagerDataSource;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -18,15 +21,19 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
+@PropertySource(value = { "classpath:application.properties" })
 public class HibernateConfig {
+
+    @Autowired
+    private Environment environment;
 
     @Bean
     public DataSource getDateSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClass("com.mysql.jdbc.Driver");
-        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/ExamSystem?useSSL=false");
-        dataSource.setUser("root");
-        dataSource.setPassword("wuqihan1996");
+        dataSource.setDriverClass(environment.getRequiredProperty("jdbc.driverClassName"));
+        dataSource.setJdbcUrl(environment.getRequiredProperty("jdbc.url"));
+        dataSource.setUser(environment.getRequiredProperty("jdbc.username"));
+        dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
         return dataSource;
     }
 
@@ -41,11 +48,12 @@ public class HibernateConfig {
 
     private Properties getHibernateProperties() {
         Properties properties = new Properties();
-        properties.put(AvailableSettings.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
-        properties.put(AvailableSettings.SHOW_SQL, "true");
-        properties.put(AvailableSettings.STATEMENT_BATCH_SIZE, "20");
-//        properties.put(AvailableSettings.HBM2DDL_AUTO, "create"); 加载的时候创建数据库"create-drop" 创建和销毁
-        properties.put(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, "org.springframework.orm.hibernate5.SpringSessionContext");
+        properties.put(AvailableSettings.DIALECT, environment.getRequiredProperty("hibernate.dialect"));
+        properties.put(AvailableSettings.SHOW_SQL, environment.getRequiredProperty("hibernate.show_sql"));
+        properties.put(AvailableSettings.STATEMENT_BATCH_SIZE, environment.getRequiredProperty("hibernate.jdbc.batch_size"));
+//        properties.put(AvailableSettings.HBM2DDL_AUTO, "create"); //加载的时候创建数据库"create-drop" 创建和销毁
+        properties.put(AvailableSettings.FORMAT_SQL,environment.getRequiredProperty("hibernate.format_sql"));
+        properties.put(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, environment.getRequiredProperty("hibernate.current_session_context_class"));
         return properties;
     }
 

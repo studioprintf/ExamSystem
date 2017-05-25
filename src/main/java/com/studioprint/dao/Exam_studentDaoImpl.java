@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * Created by lucifer on 17-5-22.
  */
-@Repository
+@Repository("exam_studentDao")
 public class Exam_studentDaoImpl implements Exam_studentDao {
 
     @Autowired

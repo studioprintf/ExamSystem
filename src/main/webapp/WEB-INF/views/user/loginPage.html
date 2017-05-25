@@ -12,7 +12,7 @@
     <table>
         <tr>
             <td>
-                <label th:text="StudentID"/>
+                <label th:text="学号"/>
             </td>
             <td>
                 <input type="text" th:field="*{studentId}"/>
@@ -20,14 +20,25 @@
         </tr>
         <tr>
             <td>
-                <label th:text="Passwd"/>
+                <label th:text="密码"/>
             </td>
             <td>
                 <input type="password" th:field="*{studentPasswd}"/>
             </td>
         </tr>
         <tr>
-            <td><input type="submit" value="submit"></td>
+            <td>
+                <input type="submit" value="submit">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input id="remember_me" name="remember-me" type="checkbox"/>
+                <label th:text="remember_me"></label>
+            </td>
+        </tr>
+        <tr>
+            <a th:href="@{/logout}">Logout</a>
         </tr>
     </table>
 </form>

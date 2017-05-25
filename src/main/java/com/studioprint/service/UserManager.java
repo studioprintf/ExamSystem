@@ -4,6 +4,7 @@ import com.studioprint.dao.Exam_studentDao;
 import com.studioprint.dao.Exam_studentDaoImpl;
 import com.studioprint.entity.ExamStudentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,10 +17,8 @@ public class UserManager {
     @Autowired
     Exam_studentDaoImpl exam_studentDao;
 
-    public boolean user_login(ExamStudentEntity examStudentEntity){
-        examStudentEntity = exam_studentDao.findById(examStudentEntity.getStudentId());
-        System.out.println(examStudentEntity.getStudentPasswd());
-        return true;
+    public ExamStudentEntity user_login(String student){
+        return exam_studentDao.findById(Integer.parseInt(student));
     }
 
     @Transactional(readOnly = false)

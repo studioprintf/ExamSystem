@@ -1,8 +1,5 @@
 package com.studioprint.config;
 
-import javax.servlet.Filter;
-
-import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
@@ -14,12 +11,12 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[] { SpringWebConfig.class };
+        return null;
     }
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] { SpringBusinessConfig.class };
+        return new Class<?>[] {SpringWebConfig.class};
     }
 
     @Override
@@ -27,11 +24,4 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
         return new String[] { "/" };
     }
 
-    @Override
-    protected Filter[] getServletFilters() {
-        final CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
-        encodingFilter.setEncoding(CHARACTER_ENCODING);
-        encodingFilter.setForceEncoding(true);
-        return new Filter[] { encodingFilter };
-    }
 }

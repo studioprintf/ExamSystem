@@ -23,12 +23,6 @@ public class UserManagerController {
         return "user/loginPage";
     }
 
-    @RequestMapping(value = "login",method = RequestMethod.POST)
-    public String login(ExamStudentEntity examStudentEntity){
-        userManager.user_login(examStudentEntity);
-        return "index";
-    }
-
     @RequestMapping(value = "register",method = RequestMethod.GET)
     public String registerPage(ExamStudentEntity examStudentEntity){
         return "user/registerPage";
